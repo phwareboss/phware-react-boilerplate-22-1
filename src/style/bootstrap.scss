@@ -1,0 +1,12 @@
+/* 1. make boostrap customizations here for App Colors: */
+
+$primary:   #0274bb;    /* blue */
+$secondary: #6c757d;    /* gray  */   
+$success:   #36b649;    /* green  */    
+$info:      #5d98bd;    /* light blue */
+$warning:   #ffc107;    /* yellow */
+$danger:    #c0182a;    /* red */
+
+
+/* 2.  import bootstrap library scss to set custom changes - must be in this order! */
+@import "../../node_modules/bootstrap/scss/bootstrap";

@@ -1,0 +1,1 @@
+export { default as AppFooterCopyright } from './FooterCopyright.js';
