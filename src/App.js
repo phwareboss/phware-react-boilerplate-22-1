@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col } from 'react-bootstrap';
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 import AppRouter from './routing';
 import AppToastContainer from "./components/Toasts/AppToastContainer";
 
@@ -9,7 +9,7 @@ import {APP_CONSTANTS} from './config';
 
 function App() {
     useEffect(() => {
-        console.log("This is the same as componentDidMount in a react class. ");
+        /*console.log("This is the same as componentDidMount in a react class. ");*/
     }, []);
 
     // const { currentUser, showModeratorBoard, showAdminBoard } = this.state;

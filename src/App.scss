@@ -1,6 +1,8 @@
 @import "style/bootstrap";
 @import "style/main";
 
-@import "style/sweetalert.scss";
+@import "style/partials/sweetalert.scss";
 
-@import "style/component-styles/login-form.scss"
+@import "style/partials/login-form.scss";
+
+@import "style/partials/one-time-passcode.scss";

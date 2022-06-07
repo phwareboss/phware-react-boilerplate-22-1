@@ -7,22 +7,15 @@ import { APP_CONSTANTS } from '../../config';
 import { login } from "../../redux/slices/auth.slice";
 import { Form, Container, Spinner } from 'react-bootstrap';
 import { MyButton, HelmetHtmlTitle } from '../common'
-import { FormTextInput } from '../common/controls';
+import { OneTimePasscodeInput } from '../common/controls';
 
-const Forgot = (props) => {
+const ForgotVerify = (props) => {
     // rename needed funcs, for better verbose
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // init state vars - Hooks
-    const { isLoggedIn } = useSelector(state => state.auth);    // auth
     const [loading, setLoading] = useState(false);            // for spinner
     const [validated, setValidated] = useState(false);        // for react bootstrap form
-
-    const { message } = useSelector(state => state.message);    // TODO: deprecated?  Do we use this?
-
-    // redirect if logged in already
-    if (isLoggedIn) navigate(APP_CONSTANTS.AUTH_BASE_PATH);
 
     // REACT-HOOK-FORM hook init
     const { setError, handleSubmit, control, reset, formState: { errors }, getValues } = useForm()
@@ -30,16 +23,11 @@ const Forgot = (props) => {
     const onSubmit = data => {
         setLoading(true);
         console.log('data sent', data);
-
-        navigate("/forgot/verify");
-        return;
-
-
        // console.log('DISPATCHing NOW login()');
         //alert(JSON.stringify(data) + '<br /> dispatching now..');
 
         dispatch( login(data.username, data.password) ).then(() => {
-            navigate("/app");
+            navigate("/login");
         })
         .catch(error => {
             //display_errors(error, getValues, setError)
@@ -47,33 +35,35 @@ const Forgot = (props) => {
         });
     };
 
+
     return (
         <>
-            <HelmetHtmlTitle pageName="Forgot My Password" />
+            <HelmetHtmlTitle pageName="Forgot My Password - Verification" />
 
-            <Form noValidate validated={validated} className="form-signin text-center mt-5 ms-auto me-auto" style={{ maxWidth: "300px" }} onSubmit={handleSubmit(onSubmit)} >
-                <Form.Control type="hidden" name="login-submit" value={"1"} />
-                <h1 className="h4 mb-3 font-weight-normal">Enter your email or mobile phone associated with this account to start the recovery process.</h1>
+            <Form noValidate validated={validated} className="form-signin text-center mt-5 ms-auto me-auto" style={{ maxWidth: "400px" }} onSubmit={handleSubmit(onSubmit)} >
+                
+                <h1 className="h4 mb-3 font-weight-normal">Verify your Identity</h1>
 
-                {loading && ( <Spinner animation="border" /> )}
+                <Form.Text>We just sent you a one-time passcode.  Enter it below to continue.</Form.Text>
 
-                <FormTextInput control={control}
-                    name={"username"} label={"Username or Email"} floatingLabel={true}
-                    className={"mb-3"}
-                    size={"lg"}
-                    required={true}
-                    validate={null}
-                    feedback={"Enter your username or email address."}
-                />
+
+                {loading && (
+                    <Spinner animation="border" />
+                )}
+
+                <Form.Control type="hidden" name="authcode" value={"1"} />
+
+                <OneTimePasscodeInput  />
+                
 
                 <MyButton type="submit" className="mt-3">Submit</MyButton>
 
                 <Container className="mt-3 d-flex justify-content-evenly">
-                    <MyButton to="/login" variant="link">Cancel recovery</MyButton>
+                    <MyButton to="/login" variant="link">Back to login</MyButton>
                 </Container>
 
             </Form>
         </>
     );
 };
-export default Forgot;
+export default ForgotVerify;

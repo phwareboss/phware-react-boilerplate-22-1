@@ -55,41 +55,66 @@ export const register = createAsyncThunk(
         }
     }
 );
+// export const signInAndFetchUser = (credentials: SignInOpts) => {
+//     return async (dispatch, getState) => {
+//        // dispatch(action.startLoading);
 
+//         try {
+//             const res = await signIn(credentials);
+//             dispatch(action.signedInSuccess(res.token));
+
+//             try {
+//                 const user = await getMe(res.token);
+//                 dispatch(action.getMeSucceded(user));
+//             } catch (err) {
+//                 dispatch(action.getMeFailed(err));
+//             }
+//         } catch {
+//             dispatch(action.signInFailed(err));
+//         }
+//     };
+// };
 export const login = createAsyncThunk(
+    "auth/login",
+    async ({ username, password }, thunkAPI) => {
+        return { 'test': 1 };
+    }
+);
+export const login_BAK = createAsyncThunk(
     "auth/login",
     async ({ username, password }, thunkAPI) => {
 
         try {
-            const response = await AuthService.login({ username, password });
+            const response = await AuthService.loginTest({ username, password });
 
             //return response.data;
 
             console.log('response', response);
 
-            let data = JSON.stringify(response.data);
+            // let data = JSON.stringify(response.data);
 
-            if (response.status === 200) {
+            // if (response.status === 200) {
 
-                let token = data.token ? data.token : (data.jwt ? data.jwt : (data.accessToken ? data.accessToken : null));
+            //     let token = data.token ? data.token : (data.jwt ? data.jwt : (data.accessToken ? data.accessToken : null));
 
-                if (token === undefined || !token || token === '') {
-                    throw new Error('no token found');
-                }
+            //     if (token === undefined || !token || token === '') {
+            //         throw new Error('no token found');
+            //     }
 
-                // store token and data in local storage
-                localStorage.setItem("token", JSON.stringify(response.data));
+            //     // store token and data in local storage
+            //     localStorage.setItem("token", JSON.stringify(response.data));
 
-                return data;
+            //     return data;
 
-            } else {
-                return thunkAPI.rejectWithValue(data);
-            }
+            // } else {
+            //     return thunkAPI.rejectWithValue(data);
+            // }
         } catch (e) {
             console.error(e);
             console.log('Error', e.response.data);
             thunkAPI.rejectWithValue(e.response.data);
         }
+
     }
 );
 
@@ -130,7 +155,7 @@ export const logout = createAsyncThunk(
             if (response.status === 200) {
                 useNavigate('/'); /// navigate back to front page
             } else {
-                return thunkAPI.rejectWithValue({err:'Could not log out', data});
+                return thunkAPI.rejectWithValue({ err: 'Could not log out', data });
             }
         } catch (e) {
             console.error(e);
@@ -189,7 +214,7 @@ const authSlice = createSlice({
             state.isError = true;
             state.errorMessage = action.payload.message;
         },
-        
+
         /****************************************************** */
         /*  fetchUserByToken                                    */
         /****************************************************** */

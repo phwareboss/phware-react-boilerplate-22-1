@@ -1,0 +1,23 @@
+/* Chrome, Safari, Edge, Opera */
+
+.app-opt-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+/* Remove Numberic Arrows fro input */
+.app-opt-inputs::-webkit-outer-spin-button,
+.app-opt-inputs::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Remove Numberic Arrows fro input -- Firefox */
+.app-opt-inputs[type=number] {
+  -moz-appearance: textfield;
+}
+
+.app-opt-inputs {
+    width: 50px;
+    text-align: center;
+}
