@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from 'react-bootstrap';
 
-
 const MyButton = (props) => {
     let output = "";
 

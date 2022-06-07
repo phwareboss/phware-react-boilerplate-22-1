@@ -88,14 +88,24 @@ const Login = (props) => {
                 <Form.Control type="hidden" name="login-submit" value={"1"} />
                 <h1 className="h4 mb-3 font-weight-normal">Please sign in</h1>
 
-                
+                <FormTextInput control={control} name="test" label="mylabel" floatingLabel size="lg" helpText="help here" className="mb-3"/>
 
                 {loading && (
                     <Spinner animation="border" />
                 )}
 
-                <FormTextInput control={control} name="username" label="Username or Email" floatingLabel={true} size="lg" className="mb-3"/>
-                <FormTextInput control={control} name="password" label="Password" floatingLabel={true} size="lg" className="mb-3"/>
+                <FloatingLabel controlId="username" label="Email or Username" className="mb-3">
+                    <Controller control={control} name="username" defaultValue="" render={({field: { onChange, onBlur, value, ref } }) => (       
+                        <Form.Control onChange={onChange} onBlur={onBlur} value={value} ref={ref} isInvalid={errors.username}  />
+                    )} rules={{ required: true }} />
+                </FloatingLabel>
+                <Form.Control.Feedback type="invalid">{errors.username?.message}</Form.Control.Feedback>         
+
+                <FloatingLabel controlId="password" label="Password">
+                    <Controller control={control} name="password" defaultValue="" render={({ field: { onChange, onBlur, value, ref } }) => (       
+                        <Form.Control type="password" placeholder="Password" onChange={onChange} onBlur={onBlur} value={value} ref={ref}  />
+                    )} rules={{ required: true }} />
+                </FloatingLabel>
 
                 <MyButton type="submit" className="mt-3">Submit</MyButton>
 
