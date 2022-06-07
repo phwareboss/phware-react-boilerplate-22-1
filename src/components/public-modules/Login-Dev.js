@@ -33,21 +33,23 @@ function display_errors(error, getValues, setError) {
 const PAGE_NAME = "Login";
 
 const Login = (props) => {
-    let navigate = useNavigate();
-
-    const [loading, setLoading] = useState(false);
-
-    // const { isLoggedIn } = useSelector(state => state.auth);
-    // if (isLoggedIn) {
-    //     return <Navigate to={APP_CONSTANTS.AUTH_BASE_PATH} />;
-    // }
-
-   // const { message } = useSelector(state => state.message);
+    // rename needed funcs, for better verbose
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // init state vars - Hooks
+    const { isLoggedIn } = useSelector(state => state.auth);    // auth
+    const [ loading, setLoading ] = useState(false);            // for spinner
+    const [ validated, setValidated ] = useState(false);        // for react bootstrap form
+
+    const { message } = useSelector(state => state.message);    // TODO: deprecated?  Do we use this?
+
+    // redirect if logged in already
+    if (isLoggedIn) navigate(APP_CONSTANTS.AUTH_BASE_PATH);
+
+    // REACT-HOOK-FORM hook init
     const {setError, handleSubmit, control, reset, formState: {errors}, getValues} = useForm()    
-
-
+    
     // const handleLogin = (e) => {
     //     e.preventDefault();
     //     setLoading(true);
@@ -69,7 +71,8 @@ const Login = (props) => {
     const onSubmit = data => {
         setLoading(true);
         console.log('data', data);
-        alert(JSON.stringify(data) + '<br /> dispatching now..');
+        console.log('DISPATCHing NOW login()');
+        //alert(JSON.stringify(data) + '<br /> dispatching now..');
 
         dispatch( login(data.username, data.password)).then( () => {
             navigate("/app");
@@ -84,9 +87,9 @@ const Login = (props) => {
         <>
             <HelmetHtmlTitle pageName="Login"/>
             
-            <Form className="form-signin text-center mt-5 ms-auto me-auto" style={{maxWidth:"300px"}}  onSubmit={handleSubmit(onSubmit)} >
+            <Form noValidate validated={validated} className="form-signin text-center mt-5 ms-auto me-auto" style={{maxWidth:"300px"}}  onSubmit={handleSubmit(onSubmit)} >
                 <Form.Control type="hidden" name="login-submit" value={"1"} />
-                <h1 className="h4 mb-3 font-weight-normal">Please sign in</h1>
+                <h1 className="h4 mb-3 font-weight-normal">Please sign in.</h1>
 
                 
 
@@ -94,9 +97,23 @@ const Login = (props) => {
                     <Spinner animation="border" />
                 )}
 
-                <FormTextInput control={control} name="username" label="Username or Email" floatingLabel={true} size="lg" className="mb-3"/>
-                <FormTextInput control={control} name="password" label="Password" floatingLabel={true} size="lg" className="mb-3"/>
-
+                <FormTextInput control={control} 
+                               name={"username"} label={"Username or Email"} floatingLabel={true} 
+                               className={"mb-3"} 
+                               size={"lg"}
+                               required={true}
+                               validate={(val) => val==='paul'}
+                               feedback={"Enter your username or email address."}
+                />
+                <FormTextInput control={control} 
+                               name={"password"} label={"Password"} floatingLabel={true} 
+                               className={"mb-3"}
+                               size={"lg"}
+                               required={true}
+                               validate={(val) => val==='paul'}
+                               feedback={"Enter your password."}
+                />
+                
                 <MyButton type="submit" className="mt-3">Submit</MyButton>
 
                 <Container className="mt-3 d-flex justify-content-evenly">
