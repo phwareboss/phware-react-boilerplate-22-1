@@ -46,20 +46,18 @@ const ForgotVerify = (props) => {
 
                 <Form.Text>We just sent you a one-time passcode.  Enter it below to continue.</Form.Text>
 
-
                 {loading && (
                     <Spinner animation="border" />
                 )}
-
-                <Form.Control type="hidden" name="authcode" value={"1"} />
+                <Form.Control type="hidden" name="authcode" value={"1"} />  
 
                 <OneTimePasscodeInput  />
-                
-
+            
                 <MyButton type="submit" className="mt-3">Submit</MyButton>
 
                 <Container className="mt-3 d-flex justify-content-evenly">
-                    <MyButton to="/login" variant="link">Back to login</MyButton>
+                    <MyButton to="/login" variant="link">cancel</MyButton>
+                    <MyButton to="/login" variant="link">get new code</MyButton>
                 </Container>
 
             </Form>
