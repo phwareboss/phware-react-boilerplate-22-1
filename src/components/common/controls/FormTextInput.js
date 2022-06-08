@@ -21,6 +21,8 @@ const FormTextInput = (props) => {
                     disabled={props.disabled}
 
                     isInvalid={fieldState.invalid}
+                    onKeyPress={props.onKeyPress}
+                    
                 />
             )} rules={{
                 // disabled:   props.disabled, 
@@ -93,7 +95,9 @@ FormTextInput.propTypes = {
     min: PropTypes.number,        //  The minimum value to accept for this input.
     pattern: PropTypes.any,        //  The regex pattern for the input.    pattern: /[A-Za-z]{3}/
 
-    feedback: PropTypes.string      // invalid feedback
+    feedback: PropTypes.string,      // invalid feedback
+
+    onKeyPress: PropTypes.func,
 }
 FormTextInput.defaultProps = {
     as: 'input',   /*  input or textarea */

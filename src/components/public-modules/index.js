@@ -1,5 +1,7 @@
 export { default as Forgot } from './Forgot';
+export { default as ForgotSend } from './ForgotSend';
 export { default as ForgotVerify } from './ForgotVerify';
+export { default as ForgotNewPass } from './ForgotNewPass';
 export { default as Home } from './Home';
 export { default as Login } from './Login';
 export { default as LoginDemo } from './Login-Demo';

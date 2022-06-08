@@ -9,7 +9,7 @@ const MyButton = (props) => {
     if (props.type && props.type==='submit') { 
         let btnclass = "btn btn-" + props.variant +' '+ props.className;
         output = (
-            <button type="submit" className={btnclass}  href={props.href} target={props.target} >
+            <button type="submit" className={btnclass}  href={props.href} target={props.target} disabled={props.disabled}>
                 {props.icon && props.icon}
                 {props.text}
                 {props.children}
@@ -17,7 +17,7 @@ const MyButton = (props) => {
         )
     } else if (props.href) {
         output = (
-            <Button href={props.href} target={props.target} variant={props.variant} type={props.type} className={props.className}>
+            <Button variant={props.variant} type={props.type} className={props.className} href={props.href} target={props.target} disabled={props.disabled}>
                 {props.icon && props.icon}
                 {props.text}
                 {props.children}
@@ -26,7 +26,7 @@ const MyButton = (props) => {
     } else if (props.to) {
         output = (
             <LinkContainer to={props.to}>
-                <Button variant={props.variant} type={props.type} className={props.className}>
+                <Button variant={props.variant} type={props.type} className={props.className} disabled={props.disabled} >
                     {props.icon && props.icon}
                     {props.text}
                     {props.children}
@@ -44,7 +44,7 @@ const MyButton = (props) => {
     } 
     else {
         output = (
-            <Button variant={"warning"}>ERR No Action Specified!</Button>
+            <Button variant={"warning"} disabled={true}>ERR No Action Specified!</Button>
         )
     }
 	return output;
@@ -54,6 +54,8 @@ MyButton.propTypes = {
     type: PropTypes.string,
     variant: PropTypes.string,
     className: PropTypes.string,
+
+    disabled: PropTypes.bool,
 }
 MyButton.defaultProps = {
     text: null,
@@ -64,6 +66,8 @@ MyButton.defaultProps = {
     onClick: null,
     to: null,
     href: null,
+
+    disabled: false,
 };
 
 export default MyButton;

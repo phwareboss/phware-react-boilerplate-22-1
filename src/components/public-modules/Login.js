@@ -103,8 +103,9 @@ const Login = (props) => {
                     name={"username"} label={"Username or Email"} floatingLabel={true}
                     className={"mb-3"}
                     size={"lg"}
+                    autoFocus={true}
                     required={true}
-                    validate={null}
+                    validate={val => val==='t'}
                     feedback={"Enter your username or email address."}
                 />
                 <FormTextInput control={control}
@@ -116,7 +117,7 @@ const Login = (props) => {
                     feedback={"Enter your password."}
                 />
 
-                <MyButton type="submit" className="mt-3">Submit</MyButton>
+                <MyButton type="submit" className="mt-3" disabled={!validated}>Submit</MyButton>
 
                 <Container className="mt-3 d-flex justify-content-evenly">
                     <MyButton to="/register" variant="link">Register</MyButton>
